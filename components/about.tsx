@@ -37,17 +37,19 @@ export default function About() {
         </p>*/}
 
       <p className="mb-3">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s
+        I`m Dimitris, a front-end developer who creates clean, responsive, and
+        user-friendly web experiences. I specialize in React and Next.js,
+        turning ideas into fast, modern websites and apps. I`m always exploring
+        new tools and techniques to make development more efficient and
+        enjoyable.
       </p>
 
       <p>
-        <span className="italic">When I`m not coding</span>, I enjoy playing
-        video games, watching movies, and go for a run. I also enjoy{" "}
-        <span className="font-medium">learning new things</span>. I am currently
-        learning about <span className="font-medium">front-end developing</span>
-        . I`m also learning how to be a better person.
+        <span className="italic">When I’m not coding</span>, you’ll probably
+        find me playing video games, watching movies, or going for a run. I also
+        love <span className="font-medium">learning new things</span> — whether
+        it’s about front-end development or just becoming a better person every
+        day.
       </p>
     </motion.section>
   );
