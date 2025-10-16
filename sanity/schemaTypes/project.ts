@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export const projectType = defineType({
   name: "project",
@@ -32,9 +32,9 @@ export const projectType = defineType({
       title: "Tags",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "string",
-        },
+        }),
       ],
     }),
     defineField({
