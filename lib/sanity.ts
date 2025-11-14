@@ -20,7 +20,7 @@ export async function getProjects() {
     _id,
     title,
     "slug": slug.current,
-    description,
+    "description": pt::text(description),
     tags,
     imageUrl,
     projectUrl
