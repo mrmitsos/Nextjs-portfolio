@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export const projectType = defineType({
   name: "project",
@@ -11,6 +11,7 @@ export const projectType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+
     defineField({
       name: "slug",
       title: "Slug",
@@ -21,12 +22,13 @@ export const projectType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+
     defineField({
       name: "description",
       title: "Description",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "block",
           styles: [{ title: "Normal", value: "normal" }],
           lists: [
@@ -39,33 +41,31 @@ export const projectType = defineType({
               { title: "Emphasis", value: "em" },
             ],
           },
-        },
+        }),
       ],
       validation: (Rule) => Rule.required(),
     }),
-    {
+
+    defineField({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [
-        {
-          type: "string",
-        },
-      ],
-    },
+      of: [defineArrayMember({ type: "string" })],
+    }),
+
     defineField({
       name: "imageUrl",
       title: "Project Image",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     }),
+
     defineField({
       name: "projectUrl",
       title: "Project URL",
       type: "url",
     }),
+
     defineField({
       name: "order",
       title: "Display Order",
@@ -73,6 +73,7 @@ export const projectType = defineType({
       description: "Lower numbers appear first",
     }),
   ],
+
   preview: {
     select: {
       title: "title",
