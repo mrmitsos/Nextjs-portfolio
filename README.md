@@ -1,35 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dimitris Maleas: Portfolio
 
-## Getting Started
+Personal portfolio built with Next.js (App Router), React 19, TypeScript and Tailwind CSS. Projects, skills and experience are managed in Sanity and rendered on the server; the contact form sends email through a Server Action using Resend and React Email.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router, Server Components, Server Actions)
+- React 19, TypeScript, Tailwind CSS 3
+- Framer Motion (respects `prefers-reduced-motion`)
+- Sanity CMS with an embedded Studio at `/studio`
+- Resend + React Email
+- Hosted on Vercel
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | Sanity dataset name |
+| `RESEND_API_KEY` | Resend API key (server only) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical production URL, used for metadata and the sitemap |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Scripts
 
-## Learn More
+- `npm run dev`: start the dev server
+- `npm run build`: production build
+- `npm run lint`: ESLint (flat config)
+- `npm run typecheck`: TypeScript check
 
-To learn more about Next.js, take a look at the following resources:
+CI (`.github/workflows/ci.yml`) runs the type check and lint on every push and pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# Nextjs-portfolio
+- `app/`: routes, metadata, sitemap and robots; `app/projects/[slug]` is statically generated from Sanity
+- `components/`: page sections and UI
+- `actions/sendEmail.ts`: contact form Server Action (validation, honeypot, rate limit)
+- `lib/sanity.ts`: GROQ queries and types
+- `sanity/`: Studio config and schemas

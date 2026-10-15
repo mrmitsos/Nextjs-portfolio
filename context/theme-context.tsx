@@ -34,14 +34,11 @@ export default function ThemeContextProvider({
   };
 
   useEffect(() => {
-    const localTheme = window.localStorage.getItem("theme") as Theme | null;
-
-    if (localTheme) {
-      setTheme(localTheme);
-      document.documentElement.classList.add("dark");
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    // The inline script in layout.tsx already applied the "dark" class before
+    // paint; mirror it into state after hydration to avoid a markup mismatch.
+    if (document.documentElement.classList.contains("dark")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme("dark");
-      document.documentElement.classList.add("dark");
     }
   }, []);
 

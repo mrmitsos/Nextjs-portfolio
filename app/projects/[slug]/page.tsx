@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { client, urlFor } from "@/lib/sanity";
+import type { Metadata } from "next";
+import { client, getProjects, urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 
 async function getProject(slug: string) {
@@ -9,12 +10,51 @@ async function getProject(slug: string) {
     title,
     "slug": slug.current,
     description,
+    "summary": pt::text(description),
     tags,
     imageUrl,
     projectUrl
   }`;
 
-  return await client.fetch(query, { slug });
+  return await client.fetch(query, { slug }, { next: { revalidate: 60 } });
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProject(slug);
+  if (!project) return {};
+
+  const description = (project.summary as string).slice(0, 160);
+  const image = project.imageUrl
+    ? urlFor(project.imageUrl).width(1200).height(630).url()
+    : undefined;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: {
+      title: project.title,
+      description,
+      url: `/projects/${slug}`,
+      images: image ? [{ url: image, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title: project.title,
+      description,
+      images: image ? [image] : undefined,
+    },
+  };
 }
 
 export default async function ProjectDetails({
@@ -34,7 +74,7 @@ export default async function ProjectDetails({
     : "";
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16">
+    <main id="main" className="max-w-4xl mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
       {imageUrl && (
         <Image
@@ -101,6 +141,6 @@ export default async function ProjectDetails({
           </span>
         </a>
       )}
-    </div>
+    </main>
   );
 }

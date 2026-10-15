@@ -59,7 +59,7 @@ export default function Intro() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I`m Dimitris.</span> I`m a{" "}
+        <span className="font-bold">Hello, I’m Dimitris.</span> I’m a{" "}
         <span className="font-bold">Front-End Developer</span> passionate about
         building modern
         <span className="italic"> sites & apps</span>. My main stack is {" "}
@@ -95,6 +95,8 @@ export default function Intro() {
           className="bg-white p-4 text-gray-700 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
           href="https://www.linkedin.com/in/dimitris-maleas"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
         >
           <BsLinkedin />
         </a>
@@ -102,6 +104,8 @@ export default function Intro() {
           className="bg-white p-4 text-gray-700 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
           href="https://github.com/mrmitsos"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
         >
           <FaGithubSquare />
         </a>

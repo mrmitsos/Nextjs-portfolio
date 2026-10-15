@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SectionHeading from "./section-heading";
 import { useSectionInview } from "@/lib/hooks";
 import { motion } from "framer-motion";
-import { getSkills } from "@/lib/sanity";
+import type { Skill } from "@/lib/sanity";
 
 const fadeInAnimationVariants = {
   initial: { opacity: 0, y: 0 },
@@ -15,17 +15,8 @@ const fadeInAnimationVariants = {
   }),
 };
 
-export default function Skills() {
+export default function Skills({ skills }: { skills: Skill[] }) {
   const { ref } = useSectionInview("Skills");
-  const [skills, setSkills] = useState<any[]>([]);
-
-  useEffect(() => {
-    async function fetchSkills() {
-      const data = await getSkills();
-      setSkills(data);
-    }
-    fetchSkills();
-  }, []);
 
   return (
     <section

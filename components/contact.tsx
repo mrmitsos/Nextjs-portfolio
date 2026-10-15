@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInview } from "@/lib/hooks";
@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 export default function Contact() {
   const { ref } = useSectionInview("Contact");
+  const formRef = useRef<HTMLFormElement>(null);
 
   return (
     <motion.section
@@ -31,16 +32,26 @@ export default function Contact() {
       </p>
 
       <form
+        ref={formRef}
         className="mt-10 flex flex-col dark:text-black/80"
         action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
-          if (error) {
-            toast.error(error);
+          const result = await sendEmail(formData);
+          if ("error" in result && result.error) {
+            toast.error(result.error);
             return;
           }
           toast.success("Email sent");
+          formRef.current?.reset();
         }}
       >
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <input
           className="h-14 px-4 rounded-lg borderBlack dark: bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
           name="senderEmail"

@@ -6,33 +6,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import SectionHeading from "./section-heading";
 import { useSectionInview } from "@/lib/hooks";
-import { getProjects, urlFor } from "@/lib/sanity";
+import type { Project as ProjectData } from "@/lib/sanity";
 
-type ProjectData = {
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
-  imageUrl: any;
-  projectUrl: string;
-};
-
-export default function Projects() {
+export default function Projects({ projects }: { projects: ProjectData[] }) {
   const { ref } = useSectionInview("Projects", 0.5);
-  const [projects, setProjects] = useState<ProjectData[]>([]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      const data = await getProjects();
-      setProjects(data);
-    }
-    fetchProjects();
-  }, []);
 
   const updateScrollState = useCallback(() => {
     const el = scrollerRef.current;
@@ -133,6 +115,7 @@ export default function Projects() {
                   key={i}
                   onClick={() => scrollToIndex(i)}
                   aria-label={`Go to project ${i + 1}`}
+                  aria-current={i === activeIndex}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     i === activeIndex
                       ? "w-6 bg-gray-800 dark:bg-white"
@@ -194,10 +177,9 @@ function ProjectCard({
   title,
   description,
   tags,
-  imageUrl,
+  imageSrc: imageUrlString,
   index,
 }: ProjectCardProps) {
-  const imageUrlString = imageUrl ? urlFor(imageUrl).width(900).url() : "";
   const visibleTags = tags?.slice(0, 4) ?? [];
   const hiddenCount = tags && tags.length > 4 ? tags.length - 4 : 0;
 
@@ -221,7 +203,6 @@ function ProjectCard({
               alt={title}
               fill
               sizes="(max-width: 640px) 85vw, 24rem"
-              quality={95}
               className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.05]"
             />
           )}

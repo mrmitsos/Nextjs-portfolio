@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInview } from "@/lib/hooks";
@@ -19,27 +19,10 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
 
-      {/*<p className="mb-3">After graduating with a degree in{" "}
-        <span className="font-medium">Accounting</span>, I decided to pursue my
-        passion for programming. I enrolled in a coding bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
-        <span className="font-medium">
-          React, Next.js, Node.js, and MongoDB
-        </span>
-        . I am also familiar with TypeScript and Prisma. I am always looking to
-        learn new technologies. I am currently looking for a{" "}
-        <span className="font-medium">full-time position</span> as a software
-        developer.
-        </p>*/}
-
       <p className="mb-3">
-        I`m Dimitris, a front-end developer who creates clean, responsive, and
+        I’m Dimitris, a front-end developer who creates clean, responsive, and
         user-friendly web experiences. I specialize in React and Next.js,
-        turning ideas into fast, modern websites and apps. I`m always exploring
+        turning ideas into fast, modern websites and apps. I’m always exploring
         new tools and techniques to make development more efficient and
         enjoyable.
       </p>

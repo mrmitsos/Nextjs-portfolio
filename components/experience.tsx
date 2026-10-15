@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import SectionHeading from "./section-heading";
 import {
   VerticalTimeline,
@@ -9,7 +9,7 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import { useSectionInview } from "@/lib/hooks";
 import { useTheme } from "@/context/theme-context";
-import { getExperience } from "@/lib/sanity";
+import type { ExperienceItem } from "@/lib/sanity";
 import { LuGraduationCap } from "react-icons/lu";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
@@ -21,18 +21,13 @@ const iconMap: { [key: string]: React.ReactElement } = {
   react: React.createElement(FaReact),
 };
 
-export default function Experience() {
+export default function Experience({
+  experiences,
+}: {
+  experiences: ExperienceItem[];
+}) {
   const { ref } = useSectionInview("Experience");
   const { theme } = useTheme();
-  const [experiences, setExperiences] = useState<any[]>([]);
-
-  useEffect(() => {
-    async function fetchExperience() {
-      const data = await getExperience();
-      setExperiences(data);
-    }
-    fetchExperience();
-  }, []);
 
   return (
     <section ref={ref} id="experience" className="scroll-mt-28 mb-28 sm:mb-40">
@@ -56,7 +51,7 @@ export default function Experience() {
                     : "0.4rem solid rgba(255,255,255,0.5)",
               }}
               date={item.date}
-              icon={iconMap[item.icon] || iconMap.work}
+              icon={(item.icon && iconMap[item.icon]) || iconMap.work}
               iconStyle={{
                 background:
                   theme === "light" ? "white" : "rgba(255,255,255,0.15)",
