@@ -24,8 +24,8 @@ export default function Intro() {
       <div className="flex items-center justify-center">
         <div className="relative">
           <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ scale: 0.6 }}
+            animate={{ scale: 1 }}
             transition={{ type: "tween", duration: 0.2 }}
           >
             <Image
@@ -56,8 +56,8 @@ export default function Intro() {
 
       <motion.h1
         className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-4xl"
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ y: 60 }}
+        animate={{ y: 0 }}
       >
         <span className="font-bold">Hello, I’m Dimitris.</span> I’m a{" "}
         <span className="font-bold">Front-End Developer</span> passionate about
