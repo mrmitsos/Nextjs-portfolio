@@ -109,19 +109,23 @@ export default function Projects({ projects }: { projects: ProjectData[] }) {
               onClick={() => scrollByCard(-1)}
             />
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               {projects.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => scrollToIndex(i)}
                   aria-label={`Go to project ${i + 1}`}
                   aria-current={i === activeIndex}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === activeIndex
-                      ? "w-6 bg-gray-800 dark:bg-white"
-                      : "w-1.5 bg-gray-400/60 hover:bg-gray-500 dark:bg-white/30 dark:hover:bg-white/50"
-                  }`}
-                />
+                  className="group flex h-6 min-w-6 items-center justify-center px-0.5"
+                >
+                  <span
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === activeIndex
+                        ? "w-6 bg-gray-800 dark:bg-white"
+                        : "w-1.5 bg-gray-400/60 group-hover:bg-gray-500 dark:bg-white/30 dark:group-hover:bg-white/50"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
